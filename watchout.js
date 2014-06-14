@@ -53,29 +53,29 @@ var moveEnemies = function(){
 };
 
 
-// var makePlayer = function(){
-//   var player = gameBoard.selectAll('circle')//circle.player??
-//                   .data([1], function(d){ return d.id; });
-//   player.enter()
-//     .append('svg:circle')
-//     .attr('class', 'player')
-//     .attr('cx', axes.x(50))
-//     .attr('cy', axes.y(50))
-//     .attr('r', 10);
+var makePlayer = function(){
+  var player = gameBoard.selectAll('circle')//circle.player??
+                  .data([1], function(d){ return d.id; });
+  player.enter()
+    .append('svg:circle')
+    .attr('class', 'player')
+    .attr('cx', axes.x(50))
+    .attr('cy', axes.y(50))
+    .attr('r', 10);
 
-//   var makeDraggable = function(){
+  var makeDraggable = function(){
 
-//   };
+  };
 
 
 
-// };
+};
 
 
 
 render(generateEnemies());
 setInterval(moveEnemies, 2000);
-// makePlayer();
+makePlayer();
 
 // build gameBoard
 // build enemy data next...
