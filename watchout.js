@@ -49,7 +49,21 @@ var render = function(enemy_data){
 var moveEnemies = function(){
   d3.selectAll('.enemy').transition().duration(1500)
     .attr('cx', function(enemy){ return axes.x(Math.random()*100); })
-    .attr('cy', function(enemy){ return axes.y(Math.random()*100);});
+    .attr('cy', function(enemy){ return axes.y(Math.random()*100);})
+    .tween('custom', function(){
+      return function(){
+      var temp = d3.select(this);
+
+        var x = +d3.select('.player').attr('cx');
+        var y = +d3.select('.player').attr('cy');
+        //tween to determine diff
+        var tempX = +d3.select(this).attr('cx');
+        var tempY = +d3.select(this).attr('cy');
+        if (Math.abs(tempX - x) < 1 || Math.abs(tempY - y) < 1){
+          console.log('collision');
+        }
+        };
+    });
 };
 
 
@@ -63,9 +77,8 @@ var makePlayer = function(){
     var playaah = d3.select('.player');
     var x = +playaah.attr('cx');
     var y = +playaah.attr('cy');
-    playaah.attr('cx',d3.event.dx +x)
-          .attr('cy',d3.event.dy +y);
-    console.log(playaah.attr('cx'), playaah.attr('cy'));
+    playaah.attr('cx', d3.event.dx +x)
+          .attr('cy', d3.event.dy +y);
     });
 
   player.enter()
@@ -75,8 +88,6 @@ var makePlayer = function(){
     .attr('cy', axes.y(50))
     .attr('r', 10)
     .call(drag);
-
-
 };
 
 
