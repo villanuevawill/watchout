@@ -2,7 +2,80 @@
 
 /* Note: an asteroid image is included in this repo.
 Feel free to use it if you like. */
+
+@font-face {
+font-family: digital;
+src: url("Digital_tech.otf") format("opentype");
+}
+
+
 .player {
-  fill: orange;
+
+}
+
+svg {
+  background-image:url('images.jpg');
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.enemy {
+  -webkit-animation: spin 4s linear infinite;
+  -webkit-transform-origin: center center;
+}
+
+.enemy:nth-of-type(3n) {
+  -webkit-animation-duration: 1.5s;
+}
+
+.enemy:nth-of-type(3n + 2) {
+  -webkit-animation-duration: 2s;
+}
+
+.enemy:nth-of-type(3n + 2) {
+  -webkit-animation-duration: 2.5s;
+}
+
+.enemy:nth-of-type(4n) {
+  -webkit-animation-delay: .33s;
+}
+
+.enemy:nth-of-type(4n + 1) {
+  -webkit-animation-delay: .67s;
+}
+
+.enemy:nth-of-type(4n + 2) {
+  -webkit-animation-delay: 1s;
+}
+
+.enemy:nth-of-type(4n + 3) {
+  -webkit-animation-delay: 1.33s;
+}
+
+
+.scoreboard {
+  padding: 40px 0;
+  width: 100%;
+ /* background-color: green;*/
+  position: absolute;
+  bottom: 0;
+  opacity: .8;
+  display: inline-block;
+  text-align: center;
+  font-family: digital;
+  font-size: 2em;
+  color: green;
+}
+
+body{
+  padding: 0;
+  margin: 0;
 }
 

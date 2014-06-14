@@ -1,8 +1,8 @@
 // start slingin' some d3 here.
 var gameOptions = {
-  height: 450,
-  width: 700,
-  enemies: 30,
+  height: window.innerHeight,
+  width: window.innerWidth,
+  enemies: 40,
   padding: 20
 };
 
@@ -35,6 +35,18 @@ var defs = gameBoard.append('svg:defs');
                 .attr('width',27)
                 .attr('height',27);
 
+  defs.append('svg:pattern')
+                .attr('id', 'player')
+                .attr('patternUnits', 'objectBoundingBox')
+                .attr('width', '1')
+                .attr('height', '1')
+                .append('svg:image')
+                .attr('xlink:href', 'spaceship.png')
+                .attr('x', 0)
+                .attr('y', 0)
+                .attr('width',40)
+                .attr('height',40);
+
 
 var generateEnemies = function(){
   return _.range(0, gameOptions.enemies)
@@ -55,10 +67,22 @@ var render = function(enemy_data){
     .attr('class', 'enemy')
     .attr('cx', function(enemy){ return axes.x(enemy.x); })
     .attr('cy', function(enemy){ return axes.y(enemy.y); })
-    .attr('r', 10)
+    .attr('r', 13)
     .attr('fill','url(#asteroid)');
-  enemies.exit()
-    .remove();
+      // .append('animateTransform')
+      // .attr('attributeName','transform')
+      // .attr('type','rotate')
+      // .attr('begin','0s')
+      // .attr('dur','2s')
+      // .attr('repeatCount','indefinite');
+        // <animateTransform attributeName="transform"
+        //             type="rotate"
+        //             // from="0 100 100" to="360 100 100"
+        //             begin="0s" dur="10s"
+        //             repeatCount="indefinite"
+          // />
+  // enemies.exit()
+  //   .remove();
 
 };
 
@@ -82,7 +106,7 @@ var moveEnemies = function(){
         var r = Math.sqrt((x * x) + (y * y));
         // console.log(r);
 
-        if (r < 20){
+        if (r < 33.5){
           // gameStats.collisions++;
           collide++;
         }
@@ -96,6 +120,7 @@ var moveEnemies = function(){
       };
     });
 };
+
 
 
 var makePlayer = function(){
@@ -122,7 +147,8 @@ var makePlayer = function(){
     .attr('class', 'player')
     .attr('cx', axes.x(50))
     .attr('cy', axes.y(50))
-    .attr('r', 10)
+    .attr('r', 20.5)
+    .attr('fill', 'url(#player)')
     .call(drag);
 };
 var updateScore =  function(){
