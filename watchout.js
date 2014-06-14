@@ -46,11 +46,11 @@ var render = function(enemy_data){
 
 };
 
-// var moveEnemies = function(){
-//   d3.selectAll('.enemy').transition().duration(1500)
-//     .attr('cx', function(enemy){ return axes.x(Math.random()*100); })
-//     .attr('cy', function(enemy){ return axes.y(Math.random()*100);});
-// };
+var moveEnemies = function(){
+  d3.selectAll('.enemy').transition().duration(1500)
+    .attr('cx', function(enemy){ return axes.x(Math.random()*100); })
+    .attr('cy', function(enemy){ return axes.y(Math.random()*100);});
+};
 
 
 // var makePlayer = function(){
@@ -74,7 +74,7 @@ var render = function(enemy_data){
 
 
 render(generateEnemies());
-// setInterval(moveEnemies, 2000);
+setInterval(moveEnemies, 2000);
 // makePlayer();
 
 // build gameBoard
