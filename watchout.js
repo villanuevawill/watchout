@@ -56,17 +56,25 @@ var moveEnemies = function(){
 var makePlayer = function(){
   var player = gameBoard.selectAll('circle')//circle.player??
                   .data([1], function(d){ return d.id; });
+
+  var drag = d3.behavior.drag()
+  .on('drag', function(){
+
+    var playaah = d3.select('.player');
+    var x = +playaah.attr('cx');
+    var y = +playaah.attr('cy');
+    playaah.attr('cx',d3.event.dx +x)
+          .attr('cy',d3.event.dy +y);
+    console.log(playaah.attr('cx'), playaah.attr('cy'));
+    });
+
   player.enter()
     .append('svg:circle')
     .attr('class', 'player')
     .attr('cx', axes.x(50))
     .attr('cy', axes.y(50))
-    .attr('r', 10);
-
-  var makeDraggable = function(){
-
-  };
-
+    .attr('r', 10)
+    .call(drag);
 
 
 };
