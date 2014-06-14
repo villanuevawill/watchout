@@ -142,6 +142,24 @@ var makePlayer = function(){
         }
     });
 
+  var move = function(kx, ky){
+
+    return function(event){
+      console.log(x);
+      var playaah = d3.select('.player');
+      var x = +playaah.attr('cx');
+      var y = +playaah.attr('cy');
+      event.preventDefault();
+      if (kx + x < gameOptions.width && ky + y < gameOptions.height
+        && (kx + x > 0) && (ky + y > 0)){
+        playaah.attr('cx', kx +x)
+                .attr('cy', ky +y);
+      }
+    };
+  };
+
+
+
   player.enter()
     .append('svg:circle')
     .attr('class', 'player')
@@ -149,7 +167,15 @@ var makePlayer = function(){
     .attr('cy', axes.y(50))
     .attr('r', 20.5)
     .attr('fill', 'url(#player)')
-    .call(drag);
+    .call(drag)
+
+  d3.select('body')
+    .call(d3.keybinding()
+      .on('←',move(-10, 0))
+      .on('↑',move(0, -10))
+      .on('→',move(5, 10))
+      .on('↓',move(0, 10))
+      );
 };
 var updateScore =  function(){
   var oldCollide = gameStats.collisions;
