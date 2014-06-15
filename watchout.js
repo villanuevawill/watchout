@@ -1,7 +1,7 @@
 // start slingin' some d3 here.
 var gameOptions = {
-  height: window.innerHeight,
-  width: window.innerWidth,
+  height: window.innerHeight - 30,
+  width: window.innerWidth - 30,
   enemies: 40,
   padding: 20
 };
@@ -144,20 +144,15 @@ var makePlayer = function(){
 
   var move = function(kx, ky){
 
-    return function(event){
-      console.log(x);
-      var playaah = d3.select('.player');
-      var x = +playaah.attr('cx');
-      var y = +playaah.attr('cy');
-      event.preventDefault();
-      if (kx + x < gameOptions.width && ky + y < gameOptions.height
-        && (kx + x > 0) && (ky + y > 0)){
-        playaah.attr('cx', kx +x)
-                .attr('cy', ky +y);
-      }
-    };
+    var playaah = d3.select('.player');
+    var x = +playaah.attr('cx');
+    var y = +playaah.attr('cy');
+    if (kx + x < gameOptions.width && ky + y < gameOptions.height
+      && (kx + x > 0) && (ky + y > 0)){
+      playaah.attr('cx', kx +x)
+              .attr('cy', ky +y);
+    }
   };
-
 
 
   player.enter()
@@ -169,13 +164,46 @@ var makePlayer = function(){
     .attr('fill', 'url(#player)')
     .call(drag)
 
+  var activeKeys = [];
+
   d3.select('body')
-    .call(d3.keybinding()
-      .on('←',move(-10, 0))
-      .on('↑',move(0, -10))
-      .on('→',move(5, 10))
-      .on('↓',move(0, 10))
-      );
+    .on('keydown', function(){
+
+      if(activeKeys.indexOf(d3.event.which) === -1){
+        activeKeys.push(d3.event.which);
+      }
+
+      if (activeKeys.indexOf(37) !== -1){
+        move(-10, 0);
+      }
+      if (activeKeys.indexOf(38) !== -1){
+        move(0, -10);
+      }
+      if (activeKeys.indexOf(39) !== -1){
+        move(10, 0);
+      }
+      if (activeKeys.indexOf(40) !== -1){
+        move(0, 10);
+      }
+    });
+
+  d3.select('body')
+    .on('keyup', function(){
+      var i = activeKeys.indexOf(d3.event.which);
+      if (i > -1){
+        activeKeys.splice(i, 1);
+      }
+    });
+
+
+
+
+    // .call(d3.keybinding()
+    //   .on('←',move(-10, 0))
+    //   .on('↑',move(0, -10))
+    //   .on('→',move(10, 0))
+    //   .on('↓',move(0, 10))
+    //   );
 };
 var updateScore =  function(){
   var oldCollide = gameStats.collisions;

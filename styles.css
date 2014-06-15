@@ -12,9 +12,16 @@ src: url("Digital_tech.otf") format("opentype");
 .player {
 
 }
+body {
+  width: 100%;
+  position: relative;
+}
 
 svg {
+  display: block;
+  margin: 0 auto;
   background-image:url('images.jpg');
+
 }
 
 @-webkit-keyframes spin {
